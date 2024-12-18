@@ -1,2 +1,13 @@
 .idea/
 .DS_Store
+
+# Ignore virtual environment
+zach-wilson-data-eng-venv/
+
+# Ignore environment variables file
+.env
+
+# Ignore Python cache files
+__pycache__/
+*.pyc
+*.pyo
