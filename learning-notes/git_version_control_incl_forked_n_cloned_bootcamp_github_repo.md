@@ -1,5 +1,63 @@
 # Git Version Control
 
+## Table of Contents
+
+1. **Git Version Control**
+   - **Initializing a Git Repository**
+     - How to initialize an empty Git repository using `git init`.
+   - **Renaming the Initial Branch to main**
+     - Instructions on renaming the default branch from `master` to `main`.
+   - **Handling Submodules**
+     - **Adding a Submodule**
+       - Steps to add an embedded repository as a submodule.
+     - **Updating Submodules**
+       - **Pulling the Latest Changes in the Submodule**
+         - How to pull the latest changes in a submodule.
+       - **Verifying the Default Branch**
+         - How to verify which branch will be pulled by default.
+       - **Updating All Submodules from the Main Repository**
+         - Steps to update all submodules from the main repository.
+   - **Committing Changes**
+     - **Review the Staged Changes**
+       - Ensuring all changes you want to commit are staged.
+     - **Commit the Changes**
+       - How to commit changes with a descriptive message.
+     - **Add the Untracked File**
+       - Instructions on adding and committing an untracked file.
+   - **Best Practices for Committing Changes**
+     - Benefits of committing changes in logical, manageable chunks.
+   - **Working in the Cloned Submodule**
+     - **Creating a Development Branch**
+       - How to create a separate branch for development.
+     - **Making Changes and Committing**
+       - Steps to make changes and commit them in the development branch.
+     - **Pushing Changes and Creating a Pull Request**
+       - How to push changes and create a pull request.
+     - **Updating the Outer Repository**
+       - Steps to update the outer repository to track new commits.
+     - **Avoiding Unnecessary Pull Requests in the Outer Repository**
+       - Tips to avoid generating unnecessary pull requests.
+   - **Pushing to Your Fork**
+     - **Fork the Repository**
+       - How to create a fork of the main repository on GitHub.
+     - **Add Your Fork as a Remote**
+       - Steps to add your fork as a remote repository.
+     - **Update the Remote URL**
+       - How to update the remote URL with your GitHub token.
+     - **Push the Development Branch to Your Fork**
+       - Instructions on pushing the development branch to your fork.
+   - **Generating a Pull Request**
+     - Steps to create a pull request on GitHub.
+   - **Integrating the Forked Repository**
+     - **Forking the Repository and Adding as Remote**
+       - How to fork the repository and add it as a remote.
+     - **Push the Development Branch to Your Fork**
+       - Instructions on pushing the development branch to your fork.
+   - **Making New Commits and Pushing to the Remote Repository**
+     - Workflow for making new commits and pushing them to the remote repository.
+   - **Renaming a File and Committing the Changes**
+     - Steps to rename a file and commit the changes.
+
 ## Initializing a Git Repository
 
 This command initializes an empty Git repository.
@@ -393,3 +451,5 @@ git commit -m "Renamed file to better reflect its content and added detailed ins
    ```sh
    git commit -m "Renamed file to better reflect its content and added detailed instructions"
    ```
+
+### Updated Content for the File
