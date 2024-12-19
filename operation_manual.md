@@ -1,4 +1,4 @@
-# Git Operations Manual
+# Operation Manual
 
 ## Staying Up to Date with the Bootcamp's GitHub Repo
 

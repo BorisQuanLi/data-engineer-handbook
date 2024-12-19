@@ -70,6 +70,36 @@ This guide provides an overview of how to connect to and query a local PostgreSQ
 1. Open a new SQL file in VS Code.
 2. Write and execute your SQL queries using the PostgreSQL extension.
 
+## Troubleshooting
+
+### Common Errors in DBeaver
+
+#### Error: SQL SELECT statement not executing
+
+If you encounter an error when running a SQL SELECT statement in DBeaver, try the following steps:
+
+1. **Check Connection**: Ensure that your connection to the PostgreSQL database is active. You can do this by clicking on the connection in the Database Navigator and verifying that it is connected.
+2. **Verify SQL Syntax**: Make sure that your SQL statement is correctly formatted and does not contain any syntax errors.
+3. **Check Permissions**: Ensure that the user you are connecting with has the necessary permissions to execute the SQL statement.
+4. **Review Error Message**: Look at the detailed error message provided by DBeaver. It often contains clues about what might be wrong.
+5. **Restart DBeaver**: Sometimes, simply restarting DBeaver can resolve transient issues.
+
+#### Error: Permission denied for table
+
+If you receive a "permission denied" error for a table, follow these steps:
+
+1. **Check User Permissions**: Ensure that the user you are connecting with has the necessary permissions to access the table. You can check and grant permissions using the following SQL commands:
+   ```sql
+   -- Check current permissions
+   \dp player_seasons
+
+   -- Grant SELECT permission to the user
+   GRANT SELECT ON TABLE player_seasons TO your_username;
+   ```
+2. **Reconnect**: After updating permissions, reconnect to the database in DBeaver and try running the query again.
+
+If the problem persists, consult the DBeaver [documentation](https://dbeaver.io/documentation/) or seek help from the community forums.
+
 ## Conclusion
 
 By following this guide, you should be able to connect to and query a local PostgreSQL database using DBeaver, psql, and VS Code with the PostgreSQL extension. Each tool offers unique features and interfaces, allowing you to choose the one that best fits your workflow.

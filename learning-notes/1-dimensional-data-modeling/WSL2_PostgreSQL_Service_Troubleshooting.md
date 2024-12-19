@@ -2,17 +2,43 @@
 
 ## Identifying Running and Failing PostgreSQL Services
 
-To show the statuses of the two PostgreSQL services (`postgresql.service` and `postgresql@14-main.service`), use the following commands:
+To show the statuses of the two PostgreSQL services (`postgresql.service` and `postgresql@14-main.service`), use the following command:
 
-1. **Check the status of `postgresql.service`**:
-   ```sh
-   sudo systemctl status postgresql.service
-   ```
+```sh
+systemctl list-units --type=service | grep postgresql
+```
 
-2. **Check the status of `postgresql@14-main.service`**:
-   ```sh
-   sudo systemctl status postgresql@14-main.service
-   ```
+You should see an output similar to this:
+
+```sh
+● postgresql.service                                     loaded failed       failed             PostgreSQL RDBMS
+  postgresql@14-main.service                             loaded active       running            PostgreSQL Cluster 14-main
+```
+
+### Explanation
+
+The `postgresql.service` is an "umbrella" service whose purpose is to start or stop the services named `postgresql@version-instance`, which are the actual services that you are interested in.
+
+To get the statuses of these, run:
+
+```sh
+sudo systemctl status 'postgresql*'
+```
+
+For instance, on an Ubuntu 22.04 system, you might have multiple running instances of PostgreSQL, which gives an output similar to this. You can see that the status of services corresponding to actual PostgreSQL instances is `active (running)`.
+
+Source: [dba.stackexchange.com](https://dba.stackexchange.com/questions/320575/what-does-postgresql-status-active-exited-mean)
+
+### Diagnosing the Issue
+
+From the output of `sudo systemctl status 'postgresql*'`, you can see that the `postgresql.service` has failed due to the following reasons:
+
+```sh
+Dec 18 09:43:16 2212-Windows11 pg_ctl[1960]: 2024-12-18 14:43:16.436 GMT [1960] FATAL:  lock file "postmaster.pid" already exists
+Dec 18 09:43:16 2212-Windows11 pg_ctl[1960]: 2024-12-18 14:43:16.436 GMT [1960] HINT:  Is another postmaster (PID 791) running in data directory "/var/lib/postgresql/14/main"?
+```
+
+This indicates that another PostgreSQL server might be running, causing a conflict.
 
 ### Possible Causes and Solutions for the Failing Service
 
@@ -69,11 +95,27 @@ To show the statuses of the two PostgreSQL services (`postgresql.service` and `p
      ```
 
 5. **Reinstall PostgreSQL**:
-   - If other troubleshooting steps fail, consider reinstalling PostgreSQL in your WSL environment:
-     ```sh
-     sudo apt remove --purge postgresql
-     sudo apt install postgresql
-     ```
+   - If other troubleshooting steps fail, consider reinstalling PostgreSQL in your WSL environment. As of now, the latest version in the default repositories is PostgreSQL 14. To ensure you install PostgreSQL 15, follow these steps:
+
+     1. Add the PostgreSQL APT repository:
+        ```sh
+        sudo sh -c 'echo "deb http://apt.postgresql.org/pub/repos/apt/ $(lsb_release -cs)-pgdg main" > /etc/apt/sources.list.d/pgdg.list'
+        ```
+
+     2. Import the repository signing key:
+        ```sh
+        wget --quiet -O - https://www.postgresql.org/media/keys/ACCC4CF8.asc | sudo apt-key add -
+        ```
+
+     3. Update the package lists:
+        ```sh
+        sudo apt update
+        ```
+
+     4. Install PostgreSQL 15:
+        ```sh
+        sudo apt install postgresql-15
+        ```
 
 ### Specific to WSL
 
